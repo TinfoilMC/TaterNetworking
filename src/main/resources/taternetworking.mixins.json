@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.github.creeper123123321.taternetworking.mixin",
+  "compatibilityLevel": "JAVA_11",
+  "mixins": [
+    "PacketDeflaterMixin",
+    "PacketInflaterMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

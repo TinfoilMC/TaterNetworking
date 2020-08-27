@@ -1,31 +1,26 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "taternetworking",
   "version": "${version}",
-
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Tater Networking",
+  "description": "Tries to optimize some Minecraft Netty code, so it can run less badly on your potato computer",
   "authors": [
-    "Me!"
+    "creeper123123321"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://github.com/ViaVersion/TaterNetworking",
+    "sources": "https://github.com/ViaVersion/TaterNetworking"
   },
-
-  "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
-
+  "license": "MIT",
+  "icon": "assets/taternetworking/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleMod"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "taternetworking.mixins.json"
   ],
-
   "depends": {
     "fabricloader": ">=0.7.4",
     "fabric": "*",
