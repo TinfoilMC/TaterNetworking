@@ -36,8 +36,6 @@ public class PacketDeflaterMixin {
 			this.deflater.setInput(in.nioBuffer());
 			this.deflater.finish();
 
-			out.clear();
-			out.ensureWritable(nBytes);
 			ByteBuf buffer = ctx.alloc().buffer(8192, 8192);
 			try {
 				while (!deflater.finished()) {
