@@ -35,16 +35,14 @@ public class PacketDeflaterMixin {
 			packetByteBuf.writeVarInt(nBytes);
 			this.deflater.setInput(in.nioBuffer());
 			this.deflater.finish();
+			
+			int start = out.writerIndex();
 
-			ByteBuf buffer = ctx.alloc().buffer(8192, 8192);
+			// https://github.com/VelocityPowered/Velocity/blob/dev/1.1.0/proxy/src/main/java/com/velocitypowered/proxy/protocol/netty/MinecraftCompressEncoder.java#L44
+			out.ensureWritable(nBytes + 1);
 			try {
-				while (!deflater.finished()) {
-					buffer.writerIndex(this.deflater.deflate(buffer.nioBuffer(0, 8192)));
-					out.writeBytes(buffer);
-					buffer.clear();
-				}
+				out.writerIndex(start + this.deflater.deflate(out.nioBuffer(start, nBytes + 1)));
 			} finally {
-				buffer.release();
 				in.clear();
 				this.deflater.reset();
 			}
