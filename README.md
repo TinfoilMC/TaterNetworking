@@ -1,9 +1,5 @@
-# Fabric Example Mod
+# TaterNetworking
 
-## Setup
+Tries to optimize some Minecraft Netty code, so it can run less badly on your potato computer - don't expect meaningful results if network usage isn't high.
 
-For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
-
-## License
-
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+Some code were based on Velocity (https://github.com/VelocityPowered/Velocity) 1.1.0
