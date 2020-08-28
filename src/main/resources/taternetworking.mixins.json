@@ -4,8 +4,13 @@
   "package": "com.github.creeper123123321.taternetworking.mixin",
   "compatibilityLevel": "JAVA_11",
   "mixins": [
+    "PacketDecryptorMixin",
     "PacketDeflaterMixin",
-    "PacketInflaterMixin"
+    "PacketEncryptionManagerAccessor",
+    "PacketEncryptorMixin",
+    "PacketInflaterMixin",
+    "SizePrependerMixin",
+    "SplitterHandlerMixin"
   ],
   "client": [
   ],
