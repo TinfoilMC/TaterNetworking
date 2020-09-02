@@ -4,6 +4,7 @@
   "package": "com.github.creeper123123321.taternetworking.mixin",
   "compatibilityLevel": "JAVA_11",
   "mixins": [
+    "MixinDebugHud",
     "PacketDecryptorMixin",
     "PacketDeflaterMixin",
     "PacketEncryptionManagerAccessor",

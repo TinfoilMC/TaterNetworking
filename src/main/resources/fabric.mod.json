@@ -15,7 +15,8 @@
   "icon": "assets/taternetworking/icon.png",
   "environment": "*",
   "entrypoints": {
-    "main": [
+    "preLaunch": [
+      "com.github.creeper123123321.taternetworking.TaterPreLaunch"
     ]
   },
   "mixins": [
