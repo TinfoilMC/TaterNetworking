@@ -10,7 +10,7 @@ import javax.crypto.Cipher;
 import java.util.List;
 
 public class TaterEncryptor extends MessageToMessageEncoder<ByteBuf> {
-	private PacketEncryptionManager crypto;
+	private final PacketEncryptionManager crypto;
 
 	public TaterEncryptor(PacketEncryptionManager crypto) {
 		this.crypto = crypto;
@@ -29,7 +29,7 @@ public class TaterEncryptor extends MessageToMessageEncoder<ByteBuf> {
 			int index = in.readerIndex();
 			int length = in.readableBytes();
 			in.writerIndex(index);
-			in.ensureWritable(cipher.getOutputSize(in.readableBytes()));
+			in.ensureWritable(cipher.getOutputSize(length));
 			int bytes = cipher.update(in.array(), in.arrayOffset() + index, length,
 							in.array(), in.arrayOffset() + index);
 			in.writerIndex(index + bytes);

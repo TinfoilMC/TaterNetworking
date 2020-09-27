@@ -27,5 +27,6 @@
     "minecraft": "1.16.x"
   },
   "suggests": {
-  }
+  },
+  "accessWidener": "taternetworking.accesswidener"
 }

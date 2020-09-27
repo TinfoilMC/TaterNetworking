@@ -32,7 +32,7 @@ public class PacketInflaterMixin {
 			PacketByteBuf packetByteBuf = new PacketByteBuf(in);
 			int informedSize = packetByteBuf.readVarInt();
 			if (informedSize == 0) {
-				list.add(packetByteBuf.readRetainedSlice(packetByteBuf.readableBytes()));
+				list.add(in.retain());
 			} else {
 				if (informedSize < this.compressionThreshold) {
 					throw new DecoderException("Badly compressed packet - size of " + informedSize + " is below server threshold of " + this.compressionThreshold);

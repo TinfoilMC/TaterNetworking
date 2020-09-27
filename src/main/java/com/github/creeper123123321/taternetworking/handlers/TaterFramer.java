@@ -14,7 +14,7 @@ public class TaterFramer extends MessageToMessageEncoder<ByteBuf> {
 
 	@Override
 	protected void encode(ChannelHandlerContext ctx, ByteBuf msg, List<Object> out) throws Exception {
-		ByteBuf prefix = ctx.alloc().buffer();
+		ByteBuf prefix = ctx.alloc().ioBuffer();
 		try {
 			new PacketByteBuf(prefix).writeVarInt(msg.readableBytes());
 			out.add(prefix.retain());

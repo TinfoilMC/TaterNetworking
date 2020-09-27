@@ -16,9 +16,9 @@ import java.util.List;
 public class SplitterHandlerMixin {
 	// Based on https://github.com/VelocityPowered/Velocity/blob/dev/1.1.0/proxy/src/main/java/com/velocitypowered/proxy/protocol/netty/MinecraftVarintFrameDecoder.java
 	// which is licensed under MIT, Copyright 2018 Velocity team
-	private FrameVarIntDecoder reader = new FrameVarIntDecoder();
-	private Exception VARINT_BIG_CACHED = new DecoderException("Varint prefix is too big!");
-	private Exception BAD_LENGTH_CACHED = new DecoderException("Varint prefix is invalid!");
+	private final FrameVarIntDecoder reader = new FrameVarIntDecoder();
+	private final Exception VARINT_BIG_CACHED = new DecoderException("Varint prefix is too big!");
+	private final Exception BAD_LENGTH_CACHED = new DecoderException("Varint prefix is invalid!");
 
 	@Inject(method = "decode", at = @At("HEAD"), cancellable = true)
 	private void onDecode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out, CallbackInfo ci) throws Exception {
