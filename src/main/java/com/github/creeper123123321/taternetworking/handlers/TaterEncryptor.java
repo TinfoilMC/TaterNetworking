@@ -22,7 +22,7 @@ public class TaterEncryptor extends MessageToMessageEncoder<ByteBuf> {
 		if (msg.hasArray()) {
 			in = msg.retain();
 		} else {
-			in = ctx.alloc().heapBuffer().writeBytes(msg);
+			in = ctx.alloc().heapBuffer().writeBytes(msg); // aes cipher uses byte[]
 		}
 		try {
 			Cipher cipher = ((PacketEncryptionManagerAccessor) crypto).getCipher();
@@ -30,8 +30,7 @@ public class TaterEncryptor extends MessageToMessageEncoder<ByteBuf> {
 			int length = in.readableBytes();
 			in.writerIndex(index);
 			in.ensureWritable(cipher.getOutputSize(length));
-			int bytes = cipher.update(in.array(), in.arrayOffset() + index, length,
-							in.array(), in.arrayOffset() + index);
+			int bytes = cipher.update(in.nioBuffer(), in.nioBuffer());
 			in.writerIndex(index + bytes);
 			out.add(in.retain());
 		} finally {

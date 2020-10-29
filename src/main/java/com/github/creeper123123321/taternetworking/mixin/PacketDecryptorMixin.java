@@ -22,7 +22,6 @@ public class PacketDecryptorMixin {
 		cir.cancel();
 
 		ByteBuf in;
-
 		if (msg.hasArray()) {
 			in = msg.retain();
 		} else {
@@ -32,9 +31,8 @@ public class PacketDecryptorMixin {
 			int index = in.readerIndex();
 			int length = in.readableBytes();
 			in.writerIndex(index);
-			in.ensureWritable(cipher.getOutputSize(in.readableBytes()));
-			int bytes = cipher.update(in.array(), in.arrayOffset() + index, length,
-					in.array(), in.arrayOffset() + index);
+			in.ensureWritable(cipher.getOutputSize(length));
+			int bytes = cipher.update(in.nioBuffer(), in.nioBuffer());
 			in.writerIndex(index + bytes);
 			cir.setReturnValue(in.retain());
 		} finally {

@@ -33,25 +33,25 @@ public class PacketInflaterMixin {
 			int informedSize = packetByteBuf.readVarInt();
 			if (informedSize == 0) {
 				list.add(in.retain());
-			} else {
-				if (informedSize < this.compressionThreshold) {
-					throw new DecoderException("Badly compressed packet - size of " + informedSize + " is below server threshold of " + this.compressionThreshold);
-				}
+				return;
+			}
+			if (informedSize < this.compressionThreshold) {
+				throw new DecoderException("Badly compressed packet - size of " + informedSize + " is below server threshold of " + this.compressionThreshold);
+			}
 
-				if (informedSize > 2097152) {
-					throw new DecoderException("Badly compressed packet - size of " + informedSize + " is larger than protocol maximum of " + 2097152);
-				}
+			if (informedSize > 2097152) {
+				throw new DecoderException("Badly compressed packet - size of " + informedSize + " is larger than protocol maximum of " + 2097152);
+			}
 
-				this.inflater.setInput(in.nioBuffer());
-				ByteBuf decompressed = ctx.alloc().buffer(informedSize, informedSize);
-				try {
-					decompressed.writerIndex(this.inflater.inflate(decompressed.nioBuffer(0, informedSize)));
-					list.add(decompressed.retain());
-				} finally {
-					decompressed.release();
-					this.inflater.reset();
-					in.clear();
-				}
+			this.inflater.setInput(in.nioBuffer());
+			ByteBuf decompressed = ctx.alloc().buffer(informedSize, informedSize);
+			try {
+				decompressed.writerIndex(this.inflater.inflate(decompressed.nioBuffer(0, informedSize)));
+				list.add(decompressed.retain());
+			} finally {
+				decompressed.release();
+				this.inflater.reset();
+				in.clear();
 			}
 		}
 	}

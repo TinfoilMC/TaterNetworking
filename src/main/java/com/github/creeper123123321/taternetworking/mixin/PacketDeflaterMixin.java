@@ -43,22 +43,24 @@ public abstract class PacketDeflaterMixin extends MessageToByteEncoder<ByteBuf> 
 		if (nBytes < this.compressionThreshold) {
 			out.writeByte(0); // 0 varint
 			out.writeBytes(in);
-		} else {
-			PacketByteBuf packetByteBuf = new PacketByteBuf(out);
-			packetByteBuf.writeVarInt(nBytes);
-			this.deflater.setInput(in.nioBuffer());
-			this.deflater.finish();
 
-			try {
-				while (!deflater.finished()) {
-					if (!out.isWritable()) out.ensureWritable(8192);
-					out.writerIndex(out.writerIndex() + this.deflater.deflate(
-							out.nioBuffer(out.writerIndex(), out.writableBytes())));
-				}
-			} finally {
-				in.clear();
-				this.deflater.reset();
+			return;
+		}
+
+		PacketByteBuf packetByteBuf = new PacketByteBuf(out);
+		packetByteBuf.writeVarInt(nBytes);
+		this.deflater.setInput(in.nioBuffer());
+		this.deflater.finish();
+
+		try {
+			while (!deflater.finished()) {
+				if (!out.isWritable()) out.ensureWritable(8192);
+				out.writerIndex(out.writerIndex() + this.deflater.deflate(
+						out.nioBuffer(out.writerIndex(), out.writableBytes())));
 			}
+		} finally {
+			in.clear();
+			this.deflater.reset();
 		}
 	}
 }
