@@ -1,4 +1,4 @@
-Unmaintained, see https://github.com/astei/krypton for an alternative
+Kinda of discontinued, see https://github.com/astei/krypton for an alternative
 
 # TaterNetworking
 
